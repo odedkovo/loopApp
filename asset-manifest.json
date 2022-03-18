@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.57f3e777.css",
+    "main.js": "/static/js/main.c99f45f5.js",
+    "static/media/stars.jpg": "/static/media/stars.eef79b6185d93c2486b2.jpg",
+    "static/media/ALLTRACK.mp3": "/static/media/ALLTRACK.0fa4445ea8455a4babf4.mp3",
+    "static/media/BVOC.mp3": "/static/media/BVOC.5ffa9906c5972f1fb03c.mp3",
+    "static/media/DRUMS.mp3": "/static/media/DRUMS.f0332952662d2e1f5d15.mp3",
+    "static/media/HEHEVOC.mp3": "/static/media/HEHEVOC.fd659059c1d55320658f.mp3",
+    "static/media/HIGHVOC.mp3": "/static/media/HIGHVOC.f09f6e03383b234370d0.mp3",
+    "static/media/JIBRISH.mp3": "/static/media/JIBRISH.d23f0b604ef55163d7e6.mp3",
+    "static/media/LEAD.mp3": "/static/media/LEAD.f8658c330b3d07661550.mp3",
+    "static/media/TAMBOURINE.mp3": "/static/media/TAMBOURINE.2ceb47bfdbea6e81aae9.mp3",
+    "static/media/UUHOVOC.mp3": "/static/media/UUHOVOC.bc87006a5f29b4cfa918.mp3",
+    "static/media/applogo.svg": "/static/media/applogo.26d4f3edb231b42ff00462ad5facaf11.svg",
+    "index.html": "/index.html",
+    "main.57f3e777.css.map": "/static/css/main.57f3e777.css.map",
+    "main.c99f45f5.js.map": "/static/js/main.c99f45f5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.57f3e777.css",
+    "static/js/main.c99f45f5.js"
+  ]
+}

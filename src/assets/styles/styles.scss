@@ -1,0 +1,12 @@
+// Basic
+@import './basic/helpers.scss';
+@import 'basics/base.scss';
+@import 'basics/colors.scss';
+
+// Pages
+@import 'pages/homepage.scss';
+@import 'pages/secondPage.scss';
+
+// Components
+@import 'components/header.scss';
+@import 'components/audioCmp.scss';

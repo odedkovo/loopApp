@@ -1,0 +1,15 @@
+.audio {
+  display: flex;
+  justify-content: space-between;
+  .audio-name {
+    margin-left: 15px;
+    color: black;
+    font-weight: 700;
+  }
+
+  .mute-btn {
+    margin-right: 15px;
+    max-height: 15px;
+    color: #896cca;
+  }
+}

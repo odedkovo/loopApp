@@ -1,104 +1,78 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
-import { updateItem } from '../store/item.action';
-import { stopSound } from '../store/item.action.js';
+
+import { updateItem, stopSound } from '../store/item.action';
+
 import muteSvg from '../assets/imgs/svg/mute.svg';
 import soundSvg from '../assets/imgs/svg/sound.svg';
-import { clear } from '@testing-library/user-event/dist/clear';
 
-const AudioCmp = ({ audio, color, _id, name, isMute }) => {
+const AudioCmp = ({ time, time1, changeTime, audio }) => {
   const dispatch = useDispatch();
+
   const { play } = useSelector((state) => ({
     play: state.itemModule.play,
   }));
+
   const { loop } = useSelector((state) => ({
     loop: state.itemModule.loop,
   }));
 
   const [recording, setRecording] = useState(new Audio());
-  const [time, setTime] = useState(0);
   const intervalId = useRef();
 
   useEffect(() => {
-    recording.src = require(`../assets/audios/${name}.mp3`);
+    recording.src = require(`../assets/audios/${audio.name}.mp3`);
   }, []);
 
   useEffect(() => {
-    if (play) {
-      intervalId.current = setInterval(() => {
-        setTime((recording.currentTime / 17) * 10000);
-      }, 1);
+    recording.ontimeupdate = () => {
+      changeTime((recording.currentTime / 17) * 17000);
+    };
 
+    if (play) {
       recording.play();
+      if (loop) recording.loop = true;
+      else if (!loop) recording.loop = false;
     } else {
-      clearInterval(intervalId.current);
       recording.pause();
-      setTime(0);
+      changeTime(0);
       recording.currentTime = 0;
     }
 
     recording.onended = () => {
-      if (loop) {
-        clearInterval(intervalId.current);
-        recording.currentTime = 0;
-        intervalId.current = setInterval(() => {
-          setTime((recording.currentTime / 17) * 10000);
-        }, 100);
-        recording.play();
-      } else {
-        clearInterval(intervalId.current);
-        recording.currentTime = 0;
-        dispatch(stopSound());
-      }
+      recording.currentTime = 0;
+      dispatch(stopSound());
     };
   }, [loop, play]);
 
   useEffect(() => {
-    if (isMute) {
-      recording.volume = 0;
-    } else {
-      recording.volume = 1;
-    }
-  }, [isMute]);
+    if (audio.isMute) recording.volume = 0;
+    else recording.volume = 1;
+  }, [audio.isMute]);
+
+  useEffect(() => {
+    recording.currentTime = (time1 * 17) / 17000;
+  }, [time1]);
 
   const toggleMute = () => {
     const newAudio = { ...audio, isMute: !audio.isMute };
     dispatch(updateItem(newAudio));
   };
-  const handleRange = () => {};
-
-  const showProgress = () => {
-    console.log(play);
-    if (play) {
-      setTimeout(() => {
-        showProgress();
-      }, 10);
-    }
-    return (recording.currentTime / 17) * 100;
-  };
 
   return (
-    <div style={{ backgroundColor: color }} className='audio'>
-      <span className='audio-name'>{name}</span>
-
+    <div style={{ backgroundColor: audio.color }} className='audio'>
+      <span className='audio-name'>{audio.name}</span>
       <input
         min={0}
-        max={10000}
-        onChange={handleRange}
+        max={17000}
+        onChange={() => {}}
         type='range'
         value={time}
       />
-
-      {/* <Box sx={{ width: '100%' }}>
-        <LinearProgress variant='determinate' value={showProgress()} />
-      </Box> */}
-
-      {isMute && (
+      {audio.isMute && (
         <img className='mute-btn' onClick={toggleMute} src={muteSvg} alt='' />
       )}
-      {!isMute && (
+      {!audio.isMute && (
         <img className='mute-btn' onClick={toggleMute} src={soundSvg} alt='' />
       )}
     </div>

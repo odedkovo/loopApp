@@ -64,44 +64,6 @@ export function itemReducer(state = initialState, action) {
       };
 
       break;
-
-    // case 'UPDATE_ITEMS':
-    //   newState = {
-    //     ...state,
-    //     items: state.items.map((item) => {
-    //       // console.log(item, action.updatedItem);
-    //       return item._id === action.updatedItem._id
-    //         ? action.updatedItem
-    //         : item;
-    //     }),
-    //   };
-    //   break;
-
-    // case 'ADD_ITEM':
-    //   newState = {
-    //     ...state,
-    //     items: [...state.items, action.savedItem],
-    //   };
-    //   break;
-
-    // case 'SET_ITEM':
-    //   newState = { ...state, currItem: action.currItem };
-    //   break;
-
-    // case 'REMOVE_ITEM':
-    //   newState = {
-    //     ...state,
-    //     items: state.items.filter((item) => item._id !== action.itemId),
-    //   };
-    //   break;
-
-    // case 'UPDATE_CURRITEM':
-    //   newState = {
-    //     ...state,
-    //     currItem: action.updatedItem,
-    //   };
-    //   break;
-
     default:
   }
 

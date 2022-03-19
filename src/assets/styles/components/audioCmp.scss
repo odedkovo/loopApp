@@ -1,6 +1,15 @@
 .audio {
   display: flex;
   justify-content: space-between;
+  border-color: rgb(63, 94, 251);
+  border-color: radial-gradient(
+    circle,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(226, 73, 127, 1) 100%,
+    rgba(252, 70, 107, 0.7234244039412641) 100%
+  );
+  border-width: 4px;
+  border-style: solid;
   .audio-name {
     margin-left: 15px;
     color: black;

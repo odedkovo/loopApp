@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { CrudlService } from '../services/crudl.service.js';
 
 // export function loadItems() {
 //   console.log('in action');

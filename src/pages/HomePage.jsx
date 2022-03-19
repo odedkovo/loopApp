@@ -47,7 +47,7 @@ export function HomePage() {
     <section className='home-page'>
       <section className='audios slide-in-br'>
         <div className='controle-panel'>
-          <span>Controle here:</span>
+          <span>Control here:</span>
           <input
             min='0'
             max='17000'
@@ -72,13 +72,13 @@ export function HomePage() {
 
       <section className='controle-btns'>
         <button className='controle-btn' onClick={onPlay}>
-          <span class='text'>play</span>
+          <span className='text'>play</span>
         </button>
         <button className='controle-btn' onClick={onStop}>
-          <span class='text'>stop</span>
+          <span className='text'>stop</span>
         </button>
         <button className='controle-btn' onClick={onToggleLoop}>
-          <span class='text'>loop/{loop ? 'on' : 'off'}</span>
+          <span className='text'>loop/{loop ? 'on' : 'off'}</span>
         </button>
       </section>
     </section>

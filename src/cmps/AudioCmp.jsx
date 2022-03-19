@@ -22,6 +22,13 @@ const AudioCmp = ({ time, time1, changeTime, audio }) => {
 
   useEffect(() => {
     recording.src = require(`../assets/audios/${audio.name}.mp3`);
+    return () => {
+      console.log('unmounting');
+      recording.pause();
+      changeTime(0);
+      recording.currentTime = 0;
+      dispatch(stopSound());
+    };
   }, []);
 
   useEffect(() => {

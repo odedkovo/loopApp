@@ -1,20 +1,23 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateItem, stopSound } from '../store/item.action';
+import { updateAudio, togglePlay } from '../store/audio.action';
 
 import muteSvg from '../assets/imgs/svg/mute.svg';
 import soundSvg from '../assets/imgs/svg/sound.svg';
 
-const AudioCmp = ({ time, time1, changeTime, audio }) => {
+const AudioPreview = ({ timeToChange, changeTime, audio }) => {
   const dispatch = useDispatch();
 
   const { play } = useSelector((state) => ({
-    play: state.itemModule.play,
+    play: state.audioModule.play,
+  }));
+  const { pause } = useSelector((state) => ({
+    pause: state.audioModule.pause,
   }));
 
-  const { loop } = useSelector((state) => ({
-    loop: state.itemModule.loop,
+  const { isLoop } = useSelector((state) => ({
+    isLoop: state.audioModule.isLoop,
   }));
 
   const [recording, setRecording] = useState(new Audio());
@@ -27,7 +30,7 @@ const AudioCmp = ({ time, time1, changeTime, audio }) => {
       recording.pause();
       changeTime(0);
       recording.currentTime = 0;
-      dispatch(stopSound());
+      dispatch(togglePlay(false));
     };
   }, []);
 
@@ -38,8 +41,10 @@ const AudioCmp = ({ time, time1, changeTime, audio }) => {
 
     if (play) {
       recording.play();
-      if (loop) recording.loop = true;
-      else if (!loop) recording.loop = false;
+      if (isLoop) recording.loop = true;
+      else if (!isLoop) recording.loop = false;
+    } else if (!play && pause) {
+      recording.pause();
     } else {
       recording.pause();
       changeTime(0);
@@ -48,9 +53,9 @@ const AudioCmp = ({ time, time1, changeTime, audio }) => {
 
     recording.onended = () => {
       recording.currentTime = 0;
-      dispatch(stopSound());
+      dispatch(togglePlay(false));
     };
-  }, [loop, play]);
+  }, [isLoop, play, pause]);
 
   useEffect(() => {
     if (audio.isMute) recording.volume = 0;
@@ -58,24 +63,17 @@ const AudioCmp = ({ time, time1, changeTime, audio }) => {
   }, [audio.isMute]);
 
   useEffect(() => {
-    recording.currentTime = (time1 * 17) / 17000;
-  }, [time1]);
+    recording.currentTime = (timeToChange * 17) / 17000;
+  }, [timeToChange]);
 
   const toggleMute = () => {
     const newAudio = { ...audio, isMute: !audio.isMute };
-    dispatch(updateItem(newAudio));
+    dispatch(updateAudio(newAudio));
   };
 
   return (
     <div style={{ backgroundColor: audio.color }} className='audio'>
       <span className='audio-name'>{audio.name}</span>
-      <input
-        min={0}
-        max={17000}
-        onChange={() => {}}
-        type='range'
-        value={time}
-      />
       {audio.isMute && (
         <img className='mute-btn' onClick={toggleMute} src={muteSvg} alt='' />
       )}
@@ -86,4 +84,4 @@ const AudioCmp = ({ time, time1, changeTime, audio }) => {
   );
 };
 
-export default AudioCmp;
+export default AudioPreview;

@@ -1,10 +1,9 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { itemReducer } from './item.reducer.js';
-// import { userReducer } from './user.reducer.js';
+import { audioReducer } from './audio.reducer.js';
+
 const rootReducer = combineReducers({
-  itemModule: itemReducer,
-  // userModule: userReducer,
+  audioModule: audioReducer,
 });
 export default createStore(rootReducer, applyMiddleware(thunk));
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

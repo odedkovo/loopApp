@@ -1,36 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AudioCmp from '../cmps/AudioCmp.jsx';
-import { playSound, stopSound, toggleLoop } from '../store/item.action.js';
+import AudioList from '../cmps/AudioList.jsx';
+import { togglePlay, toggleLoop, togglePause } from '../store/audio.action.js';
+import music1 from '../assets/imgs/svg/music1.svg';
+import music2 from '../assets/imgs/svg/music2.svg';
+import music3 from '../assets/imgs/svg/music3.svg';
 
 export function HomePage() {
   const dispatch = useDispatch();
 
-  const { audios } = useSelector((state) => ({
-    audios: state.itemModule.audios,
-  }));
+  const { isLoop } = useSelector((state) => state.audioModule);
 
-  const { play } = useSelector((state) => ({
-    play: state.itemModule.play,
-  }));
-
-  const { loop } = useSelector((state) => ({
-    loop: state.itemModule.loop,
-  }));
-
-  const [time, setTime] = useState(0);
-  const [time1, setTime1] = useState(0);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [timeToChange, setTimeToChange] = useState(0);
 
   const changeTime = (val) => {
-    console.log('inchange');
-    setTime(val);
+    setRecordingTime(val);
   };
-  const onPlay = () => {
-    dispatch(playSound());
-  };
-  const onStop = () => {
-    dispatch(stopSound());
-    console.log(play);
+  const onTogglePlay = (boolean) => {
+    dispatch(togglePause(false));
+    dispatch(togglePlay(boolean));
   };
 
   const onToggleLoop = () => {
@@ -38,49 +27,68 @@ export function HomePage() {
     dispatch(toggleLoop());
   };
 
-  const moveTime = (ev) => {
-    console.log('hi');
-    setTime1(ev.target.value);
+  const onPause = () => {
+    dispatch(togglePlay(false));
+    dispatch(togglePause(true));
   };
+
+  const speedTime = (num) => {
+    setTimeToChange(recordingTime + num * 1000);
+  };
+
+  const TimeLineToShow = [
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+  ];
 
   return (
     <section className='home-page'>
-      <section className='audios slide-in-br'>
-        <div className='controle-panel'>
-          <span>Control here:</span>
-          <input
-            min='0'
-            max='17000'
-            type='range'
-            value={time}
-            onChange={moveTime}
-          />
-        </div>
-
-        {audios.map((audio) => {
-          return (
-            <AudioCmp
-              key={audio._id}
-              changeTime={changeTime}
-              time={time}
-              time1={time1}
-              audio={audio}
+      <section className='audios'>
+        <div className='control-panel'>
+          <span className='cursor'>Cursor:</span>
+          <span onClick={() => speedTime(-3)} className='move-time-btn'>
+            -3
+          </span>
+          <section className='range-section'>
+            <input
+              className='top-range'
+              min='0'
+              max='17000'
+              type='range'
+              value={recordingTime}
+              onChange={(ev) => {
+                setTimeToChange(ev.target.value);
+              }}
             />
-          );
-        })}
+            <div className='time-line'>
+              {TimeLineToShow.map((num) => {
+                return <span className='num-to-display'>{num}</span>;
+              })}
+            </div>
+          </section>
+          <span onClick={() => speedTime(3)} className='move-time-btn'>
+            +3
+          </span>
+        </div>
+        <AudioList timeToChange={timeToChange} changeTime={changeTime} />
       </section>
 
-      <section className='controle-btns'>
-        <button className='controle-btn' onClick={onPlay}>
+      <section className='control-btns'>
+        <button className='control-btn' onClick={() => onTogglePlay(true)}>
           <span className='text'>play</span>
         </button>
-        <button className='controle-btn' onClick={onStop}>
+        <button className='control-btn' onClick={() => onTogglePlay(false)}>
           <span className='text'>stop</span>
         </button>
-        <button className='controle-btn' onClick={onToggleLoop}>
-          <span className='text'>loop/{loop ? 'on' : 'off'}</span>
+        <button className='control-btn' onClick={onToggleLoop}>
+          <span className='text'>Loop/{isLoop ? 'on' : 'off'}</span>
+        </button>
+        <button className='control-btn' onClick={onPause}>
+          <span className='text'>pause</span>
         </button>
       </section>
+      <img className='music1' src={music1} alt='' />
+      <img className='music2' src={music2} alt='' />
+      <img className='music3' src={music3} alt='' />
     </section>
   );
 }

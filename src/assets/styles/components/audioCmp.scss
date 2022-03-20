@@ -1,19 +1,38 @@
 .audio {
   display: flex;
   justify-content: space-between;
-  border-color: rgb(63, 94, 251);
-  border-color: radial-gradient(
-    circle,
-    rgba(63, 94, 251, 1) 0%,
-    rgba(226, 73, 127, 1) 100%,
-    rgba(252, 70, 107, 0.7234244039412641) 100%
-  );
+  margin-top: 2px;
+  height: 40px;
+  width: 70%;
+  min-width: 390px;
+  align-items: center;
   border-width: 4px;
-  border-style: solid;
+
   .audio-name {
+    min-width: 15%;
     margin-left: 15px;
     color: black;
     font-weight: 700;
+  }
+
+  .audio-range {
+    -webkit-appearance: none;
+    height: 4px;
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-color: white;
+    border: 1px solid rgb(163, 163, 163);
+  }
+
+  .audio-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: #e46969;
+    border: 1px solid rgb(173, 173, 173);
+    cursor: pointer;
+    box-shadow: 0 0 2px 0 #555;
   }
 
   .mute-btn {

@@ -1,5 +1,3 @@
-// in the start of project change all the item to the word we working on
-
 const initialState = {
   play: false,
   audios: [
@@ -12,10 +10,11 @@ const initialState = {
     { name: 'LEAD', _id: 7, color: 'lightpink', isMute: false },
     { name: 'UUHOVOC', _id: 8, color: 'lightyellow', isMute: false },
   ],
-  loop: false,
+  isLoop: false,
+  pause: false,
 };
 
-export function itemReducer(state = initialState, action) {
+export function audioReducer(state = initialState, action) {
   let newState = state;
 
   switch (action.type) {
@@ -35,22 +34,12 @@ export function itemReducer(state = initialState, action) {
 
       break;
 
-    case 'PLAY_SOUND':
+    case 'TOGGLE_PLAY':
       console.log('in reducer');
 
       newState = {
         ...state,
-        play: true,
-      };
-
-      break;
-
-    case 'STOP_SOUND':
-      console.log('in reducer');
-
-      newState = {
-        ...state,
-        play: false,
+        play: action.boolean,
       };
 
       break;
@@ -60,7 +49,15 @@ export function itemReducer(state = initialState, action) {
 
       newState = {
         ...state,
-        loop: !state.loop,
+        isLoop: !state.isLoop,
+      };
+
+      break;
+    case 'TOGGLE_PAUSE':
+      console.log('in reducer');
+      newState = {
+        ...state,
+        pause: action.boolean,
       };
 
       break;

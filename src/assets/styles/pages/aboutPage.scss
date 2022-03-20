@@ -1,6 +1,27 @@
 .about-page {
   height: 100vh;
   width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
 
-  // background-color: rgb(236, 195, 195);
+  .main-content {
+    margin-top: 50px;
+    width: 50%;
+    justify-content: flex-start;
+    span {
+      font-size: 30px;
+    }
+    p {
+      font-size: 20px;
+    }
+  }
+  .oded-img {
+    height: 400px;
+    margin-top: 50px;
+    border-radius: 7px;
+    border: 3px solid white;
+    max-width: 90%;
+  }
 }

@@ -11,8 +11,8 @@ export function HomePage() {
 
   const { isLoop } = useSelector((state) => state.audioModule);
 
-  const [recordingTime, setRecordingTime] = useState(0);
-  const [timeToChange, setTimeToChange] = useState(0);
+  const [recordingTime, setRecordingTime] = useState(0); //state variable -showing the time on progress bar and change due to recording time
+  const [timeToChange, setTimeToChange] = useState(0); //when changing time manualy on progress bar this variable changing -  audioPreview listening to this variable and when is changes the recording time changing to this state value.
 
   const changeTime = (val) => {
     setRecordingTime(val);
@@ -32,10 +32,6 @@ export function HomePage() {
     dispatch(togglePause(true));
   };
 
-  const speedTime = (num) => {
-    setTimeToChange(recordingTime + num * 1000);
-  };
-
   const TimeLineToShow = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
   ];
@@ -45,9 +41,7 @@ export function HomePage() {
       <section className='audios'>
         <div className='control-panel'>
           <span className='cursor'>Cursor:</span>
-          <span onClick={() => speedTime(-3)} className='move-time-btn'>
-            -3
-          </span>
+
           <section className='range-section'>
             <input
               className='top-range'
@@ -65,9 +59,6 @@ export function HomePage() {
               })}
             </div>
           </section>
-          <span onClick={() => speedTime(3)} className='move-time-btn'>
-            +3
-          </span>
         </div>
         <AudioList timeToChange={timeToChange} changeTime={changeTime} />
       </section>
